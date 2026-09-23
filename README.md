@@ -26,7 +26,7 @@ Supply_Chain_Analytics/
 | **File**             | DataCoSupplyChainDataset.csv         |
 | **Rows**             | 180,519 order-item records           |
 | **Columns**          | 53 raw features (49 after cleaning)  |
-| **Date Range**       | 2015 – 2018                          |
+| **Date Range**       | 2015 - 2018                          |
 | **Markets**          | Africa, Europe, LATAM, Pacific Asia, USCA |
 | **Order Regions**    | 23 regions worldwide                 |
 | **Customer Segments**| Consumer, Corporate, Home Office     |
@@ -65,9 +65,9 @@ Cleaning is performed by `clean_data()` in `analysis.py`:
 | Date parsing | `order date` and `shipping date` parsed to `datetime` |
 | Whitespace | All string columns stripped of leading/trailing whitespace |
 | Dropped columns | `Product Description` (100% missing), `Product Image`, `Customer Password`, `Customer Email` (4 columns) |
-| Missing fills | `Customer Lname` → `"Unknown"` (8 rows); `Customer Zipcode` → `0` (3 rows) |
+| Missing fills | `Customer Lname` -> `"Unknown"` (8 rows); `Customer Zipcode` -> `0` (3 rows) |
 | Invalid core rows | Rows with missing `Sales` or `Order Profit Per Order` dropped (0 rows affected) |
-| **Result** | 180,519 rows × 49 columns (unchanged row count) |
+| **Result** | 180,519 rows x 49 columns (unchanged row count) |
 
 ---
 
@@ -78,13 +78,13 @@ Cleaning is performed by `clean_data()` in `analysis.py`:
 | New Column | Description |
 |------------|-------------|
 | `Order Year` | Year extracted from order date |
-| `Order Month` | Month number (1–12) |
+| `Order Month` | Month number (1-12) |
 | `Order Month Name` | Abbreviated month name |
-| `Order Quarter` | Q1–Q4 |
+| `Order Quarter` | Q1-Q4 |
 | `Order YearMonth` | Period string `YYYY-MM` for time series |
-| `Shipping Delay Days` | Actual − Scheduled shipping days |
+| `Shipping Delay Days` | Actual - Scheduled shipping days |
 | `Is Late` | 1 if `Delivery Status == 'Late delivery'` else 0 |
-| `Profit Margin (%)` | `Order Profit Per Order / Sales × 100` (clipped ±200%) |
+| `Profit Margin (%)` | `Order Profit Per Order / Sales x 100` (clipped +-200%) |
 | `Revenue Band` | Low / Medium / High / Very High quartile bands |
 
 ---
@@ -104,19 +104,19 @@ Cleaning is performed by `clean_data()` in `analysis.py`:
 | Late Delivery Rate | 54.83% |
 | Avg Discount Rate | 10.17% |
 
-> All values computed dynamically from the CSV — no hard-coded figures.
+> All values computed dynamically from the CSV -- no hard-coded figures.
 
 ---
 
 ## Key Findings
 
 1. **Europe** is the top-performing market, contributing ~29.6% of total revenue.
-2. **Late delivery rate is 54.8%** — over half of all orders experience late delivery. Central Africa has the highest regional late-delivery rate.
+2. **Late delivery rate is 54.8%** -- over half of all orders experience late delivery. Central Africa has the highest regional late-delivery rate.
 3. **Consumer segment** accounts for ~52.3% of total profit.
 4. **Standard Class** is the most used shipping mode (~55% of orders).
 5. **Average discount rate is 10.2%**, which significantly erodes margins.
 6. **Fan Shop** is the highest-revenue department; **Golf Bags & Carts** has the best average profit margin.
-7. **On-time delivery rate is only 40.9%** — a major operational gap.
+7. **On-time delivery rate is only 40.9%** -- a major operational gap.
 8. Average shipping delay is **+0.57 days** (actual vs scheduled).
 
 ---
@@ -125,15 +125,15 @@ Cleaning is performed by `clean_data()` in `analysis.py`:
 
 | Tab | Content |
 |-----|---------|
-| 📊 Executive Overview | KPI cards, monthly sales/profit trends, market revenue, delivery status pie |
-| 💰 Sales & Profitability | Profit by market/department, sales vs profit scatter, yearly comparison |
-| 👥 Customer Analytics | Segment breakdown, revenue/profit by segment, top 20 customers, payment types |
-| 📦 Product Analytics | Top categories/products by sales & profit, category profit margins |
-| 🚚 Shipping & Delivery | Shipping mode distribution, late rate by mode, delay by mode, order status |
-| 🌍 Geographic Performance | Revenue/profit by market, region, and country |
-| 💡 Key Insights | Dynamically generated insights from filtered data |
-| ✅ Recommendations | Priority-ranked actionable recommendations |
-| 🔎 Data Explorer | Searchable filtered table + CSV download |
+| Executive Overview | KPI cards, monthly sales/profit trends, market revenue, delivery status pie |
+| Sales & Profitability | Profit by market/department, sales vs profit scatter, yearly comparison |
+| Customer Analytics | Segment breakdown, revenue/profit by segment, top 20 customers, payment types |
+| Product Analytics | Top categories/products by sales & profit, category profit margins |
+| Shipping & Delivery | Shipping mode distribution, late rate by mode, delay by mode, order status |
+| Geographic Performance | Revenue/profit by market, region, and country |
+| Key Insights | Dynamically generated insights from filtered data |
+| Recommendations | Priority-ranked actionable recommendations |
+| Data Explorer | Searchable filtered table + CSV download |
 
 **All charts and KPIs update automatically when sidebar filters change.**
 
@@ -178,21 +178,24 @@ pip install -r requirements.txt
 ## How to Run
 
 ### Streamlit Dashboard
+
 ```bash
-cd Supply_Chain_Analytics
 streamlit run app.py
+# or if streamlit is not on PATH:
+python -m streamlit run app.py
 ```
+
 Then open `http://localhost:8501` in your browser.
 
 ### Jupyter Notebook
+
 ```bash
-cd Supply_Chain_Analytics
 jupyter notebook DataCo_Supply_Chain_Analytics.ipynb
 ```
 
 ### Run analysis module directly (self-test)
+
 ```bash
-cd Supply_Chain_Analytics
 python analysis.py
 ```
 
@@ -201,10 +204,10 @@ python analysis.py
 ## Limitations
 
 - **Product Description** column was entirely empty (100% missing) and was dropped.
-- **Order Zipcode** is missing for ~86% of rows — not used in analysis.
+- **Order Zipcode** is missing for ~86% of rows -- not used in analysis.
 - Late delivery risk is based on the `Delivery Status` column (not the `Late_delivery_risk` binary flag, which is a model prediction in the source data). Both are available for cross-checking.
 - Geographic map charts are not implemented (Plotly Mapbox requires a token); region/country bar charts are used instead.
-- Data covers 2015–2018; conclusions may not reflect current supply chain conditions.
+- Data covers 2015-2018; conclusions may not reflect current supply chain conditions.
 
 ---
 
@@ -219,6 +222,4 @@ python analysis.py
 
 ---
 
-*Built with Python · pandas · Streamlit · Plotly · Jupyter*
-#   I B M _ I n t r n s h i p _ S u p p l y _ C h a i n _ A n a l y t i c s  
- 
+*Built with Python, pandas, Streamlit, Plotly, and Jupyter*
